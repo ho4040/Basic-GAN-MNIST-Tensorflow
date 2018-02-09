@@ -59,8 +59,8 @@ y_real, logits_real = discriminator(x, True)
 #loss_d = -(tf.reduce_mean(tf.log(y_real)) + tf.reduce_mean(tf.log(1-y_fake)))
 #loss_g = tf.reduce_mean(tf.log(1-y_fake))
 
-# To remove sigmoid from backpropagation process, use logit and sigmoid_cross_entropy
-
+# use logits and sigmoid_cross_entropy
+# to remove sigmoid from backpropagation process
 label_one = tf.ones_like(logits_real)
 label_zero = tf.zeros_like(logits_fake)
 loss_d = tf.losses.sigmoid_cross_entropy(multi_class_labels=label_zero, logits=logits_fake) + tf.losses.sigmoid_cross_entropy(multi_class_labels=label_one, logits=logits_real)
@@ -84,7 +84,7 @@ with tf.control_dependencies(update_ops):
 
 # In[4]:
 
-
+# for Tensorboard
 fake_images = tf.reshape(x_fake, [-1, 28, 28, 1])
 tf.summary.image('fake_images', fake_images, 3)
 tf.summary.histogram('y_real', y_real)
